@@ -61,10 +61,14 @@ public partial class TrainingSpace
 
 public partial class TrainingSpace 
 {
-    int pValue = 6;
-    _testMock.Setup(x => x.MethodWithReturn()).Returns(pValue);
-    var myProperty = _testMock.Object.MethodWithReturn();
+    private void Solution()
+    {
+        int pValue = 6;
+        _testMock.Setup(x => x.MethodWithReturn()).Returns(pValue);
+        var myProperty = _testMock.Object.MethodWithReturn();
+        
+        Assert.AreEqual(pValue, myProperty);
+        _testMock.Verify(x => x.MethodWithReturn(), Times.Once);
+    }
     
-    Assert.AreEqual(pValue, myProperty);
-    _testMock.Verify(x => x.MethodWithReturn(), Times.Once);
 }
