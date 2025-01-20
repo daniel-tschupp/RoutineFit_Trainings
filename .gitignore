@@ -1,0 +1,7 @@
+.vs
+TestResults
+TestRestlts/*
+bin
+bin/*
+obj
+obj/*

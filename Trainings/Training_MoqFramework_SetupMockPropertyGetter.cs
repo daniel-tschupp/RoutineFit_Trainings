@@ -1,4 +1,4 @@
-﻿using Moq;
+using Moq;
 
 namespace Trainingsplatform;
 
