@@ -1,4 +1,4 @@
-﻿namespace Trainingsplatform;
+namespace Trainingsplatform;
 
 [TestClass]
 public partial class TrainingSpace

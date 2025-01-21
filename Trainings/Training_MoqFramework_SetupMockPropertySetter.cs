@@ -22,8 +22,8 @@ public partial class TrainingSpace
     {
         Assert.IsTrue(false, "Implement the Moq Framework to check if the property was set once and with correct value.");
     }
-
-    public void GoToSolution() => this.Solution();
+    [TestMethod]
+    public void VerifySolution() => this.Solution();
 
     [TestInitialize]
     public void Setup()
