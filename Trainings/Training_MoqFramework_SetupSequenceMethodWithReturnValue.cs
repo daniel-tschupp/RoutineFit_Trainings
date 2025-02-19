@@ -25,14 +25,6 @@ public partial class TrainingSpace
     }
     [TestMethod]
     public void VerifySolution() => this.Solution();
-
-    [TestInitialize]
-    public void Setup()
-    {
-        _testMock = new Mock<ITest>();
-    }
-
-    private Mock<ITest> _testMock;
 }
 
 
@@ -67,17 +59,19 @@ public partial class TrainingSpace
 
 public partial class TrainingSpace
 {
+    private Mock<ITest> _solutionMock = new Mock<ITest>();
+
     private void Solution()
     {
         var expectedReturnValue = new List<int>() { 1, 2, 3, 4 }; ;
         var returnedValue = new List<int>();
 
-        var sequence = _testMock.SetupSequence(x => x.MethodWithReturn());
+        var sequence = _solutionMock.SetupSequence(x => x.MethodWithReturn());
         expectedReturnValue.ForEach(v => sequence.Returns(v));
 
         Enumerable.Range(0, expectedReturnValue.Count)
             .ToList()
-            .ForEach(idx => returnedValue.Add(_testMock.Object.MethodWithReturn())
+            .ForEach(idx => returnedValue.Add(_solutionMock.Object.MethodWithReturn())
         );
 
         MoqTestReturnsMultipleValues_Solution(expectedReturnValue, returnedValue);
@@ -89,6 +83,6 @@ public partial class TrainingSpace
             .ToList()
             .ForEach(pair => Assert.AreEqual(pair.expValue, pair.retValue));
 
-        _testMock.Verify(x => x.MethodWithReturn(), Times.Exactly(expectedArgumentValue.Count));
+        _solutionMock.Verify(x => x.MethodWithReturn(), Times.Exactly(expectedArgumentValue.Count));
     }
 }

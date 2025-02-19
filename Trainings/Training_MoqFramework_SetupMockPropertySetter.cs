@@ -24,14 +24,6 @@ public partial class TrainingSpace
     }
     [TestMethod]
     public void VerifySolution() => this.Solution();
-
-    [TestInitialize]
-    public void Setup()
-    {
-        _testMock = new Mock<ITest>();
-    }
-
-    private Mock<ITest> _testMock;
 }
 
 
@@ -66,14 +58,16 @@ public partial class TrainingSpace
 
 public partial class TrainingSpace
 {
+    private Mock<ITest> _solutionMock = new Mock<ITest>();
+
     private void Solution()
     {
         int Expected_MyProperty = 6;
-        _testMock.Object.MyProperty = Expected_MyProperty;
+        _solutionMock.Object.MyProperty = Expected_MyProperty;
         MoqTestIfPropertyIsSet_Solution(Expected_MyProperty);
     }
     private void MoqTestIfPropertyIsSet_Solution(int expectedPropertyValue)
     {
-        _testMock.VerifySet(x => x.MyProperty = expectedPropertyValue, Times.Once);
+        _solutionMock.VerifySet(x => x.MyProperty = expectedPropertyValue, Times.Once);
     }
 }

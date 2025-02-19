@@ -24,14 +24,6 @@ public partial class TrainingSpace
     }
     [TestMethod]
     public void VerifySolution() => this.Solution();
-
-    [TestInitialize]
-    public void Setup()
-    {
-        _testMock = new Mock<ITest>();
-    }
-
-    private Mock<ITest> _testMock;
 }
 
 
@@ -66,18 +58,20 @@ public partial class TrainingSpace
 
 public partial class TrainingSpace
 {
+    private Mock<ITest> _solutionMock = new Mock<ITest>();
+    
     private void Solution()
     {
         int expectedReturnValue = 6;
         var returnedValue = 0; 
 
-        _testMock.SetupGet(x => x.MyProperty).Returns(expectedReturnValue);
-        returnedValue = _testMock.Object.MyProperty;
+        _solutionMock.SetupGet(x => x.MyProperty).Returns(expectedReturnValue);
+        returnedValue = _solutionMock.Object.MyProperty;
         MoqTestReturnPropertyValue_Solution(expectedReturnValue, returnedValue);
     }
     private void MoqTestReturnPropertyValue_Solution(int expectedArgumentValue, int returnedValue)
     {
         Assert.AreEqual(expectedArgumentValue, returnedValue);
-        _testMock.VerifyGet(x => x.MyProperty, Times.Once);
+        _solutionMock.VerifyGet(x => x.MyProperty, Times.Once);
     }
 }
